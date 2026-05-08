@@ -1,0 +1,821 @@
+# Landing Page Futurista — LeadXtractor
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeadXtractor — IA de Extração de Leads</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --bg:#050816;
+      --bg2:#0b1026;
+      --primary:#00e5ff;
+      --secondary:#7b61ff;
+      --accent:#00ffb3;
+      --text:#ffffff;
+      --muted:#9ca3af;
+      --glass:rgba(255,255,255,0.05);
+      --border:rgba(255,255,255,0.12);
+    }
+
+    body{
+      background: radial-gradient(circle at top, #121d45 0%, #050816 55%);
+      color:var(--text);
+      font-family:'Inter',sans-serif;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size:40px 40px;
+      z-index:-1;
+      animation:gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove{
+      from{transform:translateY(0px)}
+      to{transform:translateY(40px)}
+    }
+
+    .blur-circle{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(90px);
+      opacity:.35;
+      z-index:-1;
+      animation:float 10s ease-in-out infinite;
+    }
+
+    .circle-1{
+      width:300px;
+      height:300px;
+      background:#00e5ff;
+      top:100px;
+      left:-50px;
+    }
+
+    .circle-2{
+      width:350px;
+      height:350px;
+      background:#7b61ff;
+      top:450px;
+      right:-80px;
+    }
+
+    @keyframes float{
+      0%,100%{transform:translateY(0px)}
+      50%{transform:translateY(-25px)}
+    }
+
+    header{
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:999;
+      backdrop-filter:blur(16px);
+      background:rgba(5,8,22,0.65);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav{
+      max-width:1300px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px;
+    }
+
+    .logo{
+      font-family:'Orbitron',sans-serif;
+      font-size:1.6rem;
+      font-weight:800;
+      color:var(--primary);
+      text-shadow:0 0 15px rgba(0,229,255,.6);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:30px;
+      align-items:center;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      text-decoration:none;
+      transition:.3s;
+      font-weight:500;
+    }
+
+    .nav-links a:hover{
+      color:var(--primary);
+    }
+
+    .btn{
+      border:none;
+      padding:15px 28px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:white;
+      font-weight:700;
+      cursor:pointer;
+      transition:.4s;
+      box-shadow:0 10px 35px rgba(0,229,255,.25);
+    }
+
+    .btn:hover{
+      transform:translateY(-4px) scale(1.03);
+      box-shadow:0 20px 45px rgba(0,229,255,.35);
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      padding:140px 20px 80px;
+    }
+
+    .hero-container{
+      max-width:1300px;
+      width:100%;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:60px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:rgba(0,229,255,0.1);
+      border:1px solid rgba(0,229,255,0.25);
+      color:var(--primary);
+      padding:10px 18px;
+      border-radius:999px;
+      margin-bottom:25px;
+      font-size:.9rem;
+      animation:pulse 2s infinite;
+    }
+
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(0,229,255,.4)}
+      70%{box-shadow:0 0 0 18px rgba(0,229,255,0)}
+      100%{box-shadow:0 0 0 0 rgba(0,229,255,0)}
+    }
+
+    .hero h1{
+      font-family:'Orbitron',sans-serif;
+      font-size:4.5rem;
+      line-height:1.1;
+      margin-bottom:25px;
+    }
+
+    .gradient-text{
+      background:linear-gradient(90deg,var(--primary),#fff,var(--secondary));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:1.15rem;
+      line-height:1.8;
+      margin-bottom:35px;
+      max-width:620px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .btn-outline{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.15);
+      color:white;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:30px;
+      padding:30px;
+      backdrop-filter:blur(18px);
+      position:relative;
+      overflow:hidden;
+      transform-style:preserve-3d;
+      animation:cardFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat{
+      0%,100%{transform:translateY(0px) rotateY(0deg)}
+      50%{transform:translateY(-18px) rotateY(4deg)}
+    }
+
+    .hero-card::before{
+      content:'';
+      position:absolute;
+      width:200px;
+      height:200px;
+      background:radial-gradient(circle,var(--primary),transparent 70%);
+      top:-60px;
+      right:-60px;
+      opacity:.3;
+    }
+
+    .dashboard-top{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:25px;
+      align-items:center;
+    }
+
+    .dashboard-title{
+      font-size:1.4rem;
+      font-weight:700;
+    }
+
+    .dashboard-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .mini-card{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:20px;
+      transition:.4s;
+    }
+
+    .mini-card:hover{
+      transform:translateY(-8px);
+      border-color:rgba(0,229,255,0.35);
+    }
+
+    .mini-card h3{
+      color:var(--muted);
+      font-size:.85rem;
+      margin-bottom:10px;
+    }
+
+    .mini-card strong{
+      font-size:1.7rem;
+      color:white;
+    }
+
+    .chart{
+      margin-top:30px;
+      height:180px;
+      display:flex;
+      align-items:flex-end;
+      gap:14px;
+    }
+
+    .bar{
+      flex:1;
+      background:linear-gradient(to top,var(--primary),var(--secondary));
+      border-radius:12px 12px 0 0;
+      animation:grow 2s ease;
+      position:relative;
+    }
+
+    @keyframes grow{
+      from{height:0}
+    }
+
+    .bar::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(255,255,255,.35),transparent);
+      border-radius:inherit;
+    }
+
+    section{
+      padding:120px 20px;
+      position:relative;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .section-title h2{
+      font-size:3rem;
+      margin-bottom:20px;
+      font-family:'Orbitron',sans-serif;
+    }
+
+    .section-title p{
+      color:var(--muted);
+      max-width:750px;
+      margin:auto;
+      line-height:1.8;
+    }
+
+    .features{
+      max-width:1300px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+
+    .feature-card{
+      background:var(--glass);
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:35px;
+      backdrop-filter:blur(14px);
+      transition:.5s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .feature-card:hover{
+      transform:translateY(-12px);
+      border-color:rgba(0,229,255,.35);
+      box-shadow:0 20px 60px rgba(0,229,255,.15);
+    }
+
+    .feature-icon{
+      width:70px;
+      height:70px;
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:2rem;
+      margin-bottom:25px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      box-shadow:0 10px 30px rgba(0,229,255,.25);
+    }
+
+    .feature-card h3{
+      font-size:1.4rem;
+      margin-bottom:15px;
+    }
+
+    .feature-card p{
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .stats{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+    }
+
+    .stat-box{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      padding:40px;
+      text-align:center;
+      backdrop-filter:blur(16px);
+    }
+
+    .stat-box h3{
+      font-size:3rem;
+      color:var(--primary);
+      margin-bottom:10px;
+      font-family:'Orbitron',sans-serif;
+    }
+
+    .testimonial-wrapper{
+      max-width:1200px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .testimonial{
+      padding:35px;
+      border-radius:28px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(18px);
+    }
+
+    .testimonial p{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:25px;
+    }
+
+    .user{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .avatar{
+      width:55px;
+      height:55px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+    }
+
+    .cta{
+      max-width:1200px;
+      margin:auto;
+      padding:80px;
+      border-radius:40px;
+      text-align:center;
+      background:linear-gradient(135deg,rgba(0,229,255,.12),rgba(123,97,255,.14));
+      border:1px solid rgba(255,255,255,.08);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .cta::before{
+      content:'';
+      position:absolute;
+      width:400px;
+      height:400px;
+      background:radial-gradient(circle,var(--primary),transparent 70%);
+      top:-220px;
+      right:-120px;
+      opacity:.25;
+    }
+
+    .cta h2{
+      font-size:3.5rem;
+      margin-bottom:20px;
+      font-family:'Orbitron',sans-serif;
+    }
+
+    .cta p{
+      color:var(--muted);
+      font-size:1.1rem;
+      max-width:800px;
+      margin:0 auto 40px;
+      line-height:1.8;
+    }
+
+    footer{
+      padding:40px 20px;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.08);
+      color:var(--muted);
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(60px);
+      transition:1s;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:980px){
+      .hero-container{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:3rem;
+      }
+
+      .section-title h2,
+      .cta h2{
+        font-size:2.4rem;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .cta{
+        padding:50px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blur-circle circle-1"></div>
+  <div class="blur-circle circle-2"></div>
+
+  <header>
+    <div class="nav">
+      <div class="logo">LeadXtractor</div>
+
+      <div class="nav-links">
+        <a href="#features">Recursos</a>
+        <a href="#stats">Resultados</a>
+        <a href="#testimonials">Depoimentos</a>
+        <button class="btn">Começar Agora</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-container">
+
+      <div>
+        <div class="badge">
+          ⚡ IA Avançada de Extração de Leads B2B
+        </div>
+
+        <h1>
+          O Futuro da
+          <span class="gradient-text"> Geração de Leads</span>
+          Já Chegou
+        </h1>
+
+        <p>
+          Automatize a captura de empresas, contatos e oportunidades usando inteligência artificial. Extraia leads qualificados do LinkedIn, Google Maps e web scraping em segundos com um dashboard futurista e integrações inteligentes.
+        </p>
+
+        <div class="hero-buttons">
+          <button class="btn">Teste Grátis</button>
+          <button class="btn btn-outline">Ver Demonstração</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="dashboard-top">
+          <div>
+            <div class="dashboard-title">Painel Inteligente</div>
+            <small style="color:#9ca3af">IA Analisando Dados em Tempo Real</small>
+          </div>
+
+          <div style="color:#00ffb3;font-weight:700;">
+            ● Online
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="mini-card">
+            <h3>Total de Leads</h3>
+            <strong>58.2K</strong>
+          </div>
+
+          <div class="mini-card">
+            <h3>Conversão</h3>
+            <strong>+38%</strong>
+          </div>
+
+          <div class="mini-card">
+            <h3>Empresas</h3>
+            <strong>12.4K</strong>
+          </div>
+
+          <div class="mini-card">
+            <h3>IA Insights</h3>
+            <strong>99%</strong>
+          </div>
+        </div>
+
+        <div class="chart">
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:60%"></div>
+          <div class="bar" style="height:75%"></div>
+          <div class="bar" style="height:90%"></div>
+          <div class="bar" style="height:65%"></div>
+          <div class="bar" style="height:100%"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-title reveal">
+      <h2>Recursos Ultra Inteligentes</h2>
+      <p>
+        Uma plataforma futurista desenvolvida para empresas que desejam dominar o mercado utilizando automação, inteligência artificial e dados estratégicos.
+      </p>
+    </div>
+
+    <div class="features">
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">🤖</div>
+        <h3>IA de Extração</h3>
+        <p>
+          Capture empresas, contatos e leads automaticamente com algoritmos avançados e filtros inteligentes.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3>Dashboard Futurista</h3>
+        <p>
+          Visualize métricas em tempo real com gráficos animados e insights gerados por inteligência artificial.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">⚡</div>
+        <h3>Automação Total</h3>
+        <p>
+          Automatize prospecção, CRM, contatos e follow-up sem precisar perder horas operando manualmente.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔗</div>
+        <h3>Integrações</h3>
+        <p>
+          Conecte com CRMs, APIs, WhatsApp, email marketing e ferramentas corporativas em poucos cliques.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">🌐</div>
+        <h3>Web Scraping Inteligente</h3>
+        <p>
+          Colete dados públicos da internet de forma organizada, rápida e escalável para acelerar vendas.
+        </p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">🛡️</div>
+        <h3>Segurança Avançada</h3>
+        <p>
+          Infraestrutura segura com autenticação moderna e criptografia para proteger todos os dados.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="stats">
+    <div class="section-title reveal">
+      <h2>Resultados Reais</h2>
+      <p>
+        Empresas estão escalando vendas e reduzindo custos utilizando automação inteligente e prospecção avançada.
+      </p>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat-box reveal">
+        <h3>+320%</h3>
+        <p>Aumento de Leads Qualificados</p>
+      </div>
+
+      <div class="stat-box reveal">
+        <h3>58K+</h3>
+        <p>Contatos Extraídos</p>
+      </div>
+
+      <div class="stat-box reveal">
+        <h3>99.9%</h3>
+        <p>Disponibilidade</p>
+      </div>
+
+      <div class="stat-box reveal">
+        <h3>24/7</h3>
+        <p>IA Operando Automaticamente</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="section-title reveal">
+      <h2>O Que Estão Falando</h2>
+      <p>
+        Profissionais e empresas estão transformando seus resultados com automação de prospecção.
+      </p>
+    </div>
+
+    <div class="testimonial-wrapper">
+
+      <div class="testimonial reveal">
+        <p>
+          “A LeadXtractor revolucionou nossa prospecção. Conseguimos triplicar nossa geração de leads em menos de 30 dias.”
+        </p>
+
+        <div class="user">
+          <div class="avatar"></div>
+          <div>
+            <strong>Lucas Andrade</strong>
+            <div style="color:#9ca3af">CEO TechScale</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial reveal">
+        <p>
+          “O dashboard futurista e a automação economizam horas da nossa equipe comercial diariamente.”
+        </p>
+
+        <div class="user">
+          <div class="avatar"></div>
+          <div>
+            <strong>Mariana Costa</strong>
+            <div style="color:#9ca3af">Gestora Comercial</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial reveal">
+        <p>
+          “A IA realmente entende quais leads têm maior potencial. O ROI foi absurdo.”
+        </p>
+
+        <div class="user">
+          <div class="avatar"></div>
+          <div>
+            <strong>Felipe Moura</strong>
+            <div style="color:#9ca3af">Founder Growth Labs</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="cta reveal">
+      <h2>
+        Transforme Dados em Vendas
+      </h2>
+
+      <p>
+        Entre para a nova geração de empresas que utilizam inteligência artificial para dominar o mercado B2B.
+      </p>
+
+      <button class="btn">
+        COMEÇAR AGORA
+      </button>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 LeadXtractor — Todos os direitos reservados.
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    function revealOnScroll(){
+      const trigger = window.innerHeight * 0.85;
+
+      reveals.forEach(el=>{
+        const top = el.getBoundingClientRect().top;
+
+        if(top < trigger){
+          el.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    const heroCard = document.querySelector('.hero-card');
+
+    document.addEventListener('mousemove',(e)=>{
+      const x = (window.innerWidth / 2 - e.pageX) / 40;
+      const y = (window.innerHeight / 2 - e.pageY) / 40;
+
+      heroCard.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+    });
+  </script>
+
+</body>
+</html>
+```
